@@ -5,16 +5,21 @@ let dataBase = JSON.parse(localStorage.getItem("item")) || [];
 let checkBase = JSON.parse(localStorage.getItem("check")) || [];
 let listBlock = document.querySelector("#list-block");
 
+//編輯模式
+let editMode = false;
+
 //!events
 userInput.addEventListener("keypress", (e) => {
   if (e.key == "Enter") {
     addData();
   }
 });
+
+listBlock.addEventListener("click", editData);
 addBtn.addEventListener("click", addData);
 listBlock.addEventListener("click", deleteData);
-listBlock.addEventListener("click", editData);
 listBlock.addEventListener("change", updateCheckBase);
+
 //@重新渲染頁面
 updatePage(dataBase);
 updatePageCheck(checkBase);
@@ -103,7 +108,7 @@ function createItem(text, num) {
 function updatePage(dataBase) {
   if (listBlock.children.length > 0) clearAll();
   for (let i = 0; i < dataBase.length; i++) {
-    createItem(dataBase[i].content);
+    createItem(dataBase[i].content, i);
   }
 }
 
