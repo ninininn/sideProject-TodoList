@@ -177,3 +177,24 @@ button {
 #clearBtn:hover {
   background-color: var(--warning);
 }
+
+/* RWD settings */
+@media (max-width: 1440px) {
+  .header {
+    font-size: 3em;
+    padding-top: 3%;
+  }
+  .container {
+    width: 60%;
+    margin: -8% auto;
+    padding: 0.5% 3%;
+  }
+  #clearBtn {
+    margin: 8% auto;
+  }
+}
+@media (max-width: 900px) {
+  .container {
+    margin: -10% auto;
+  }
+}
