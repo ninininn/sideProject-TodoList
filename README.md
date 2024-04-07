@@ -3,7 +3,6 @@
 the first todo list project done with basic JS DOM
 
 # Functional Requirements
-
 1.點擊＋或 enter 鍵新增項目 
 2.點擊 deleteBtn 刪除該項目 
 3.紀錄內容（包含勾選狀態），儲存至 localStorage 
