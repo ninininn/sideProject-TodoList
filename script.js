@@ -2,6 +2,7 @@
 let userInput = document.getElementById("userInput");
 let addBtn = document.getElementById("addBtn");
 let dataBase = JSON.parse(localStorage.getItem("item")) || [];
+let checkBase = JSON.parse(localStorage.getItem("check")) || [];
 let listBlock = document.querySelector("#list-block");
 // let deleteBtn = document.querySelectorAll(".deleteBtn");
 // let editBtn = document.querySelectorAll(".editBtn");
@@ -10,6 +11,7 @@ let listBlock = document.querySelector("#list-block");
 addBtn.addEventListener("click", addData);
 listBlock.addEventListener("click", deleteData);
 updatePage(dataBase);
+updateCheckboxStatus(checkBase);
 setNum();
 
 //!點擊新增按鈕時，將input.value加入localStorage
@@ -32,11 +34,16 @@ function addData(e) {
   var todoList = {
     content: userInput.value,
   };
+  var checkState = {
+    checked: false,
+  };
   dataBase.push(todoList);
+  checkBase.push(checkState);
   createItem(dataBase[dataBase.length - 1].content); //@只取dataBase最後一個元素新增
   setNum(); //設定data-num
   checkboxStatus(); //設定checkbox勾選樣式
   localStorage.setItem("item", JSON.stringify(dataBase));
+  localStorage.setItem("check", JSON.stringify(checkBase));
   userInput.value = ""; //清空輸入框
 }
 
@@ -81,6 +88,7 @@ function createItem(text) {
   let listBlock = document.getElementById("list-block");
   listBlock.appendChild(item);
 }
+//*把dataBase內資料重新渲染至網頁
 function updatePage(dataBase) {
   for (let i = 0; i < dataBase.length; i++) {
     createItem(dataBase[i].content);
@@ -92,10 +100,12 @@ function setNum() {
   let item = document.querySelectorAll(".item");
   let deleteBtn = document.querySelectorAll(".deleteBtn");
   let editBtn = document.querySelectorAll(".editBtn");
+  let checkboxList = document.querySelectorAll("input[type=checkbox]");
   for (let i = 0; i < item.length; i++) {
     item[i].setAttribute("data-num", `${i}`);
     deleteBtn[i].setAttribute("data-num", `${i}`);
     editBtn[i].setAttribute("data-num", `${i}`);
+    checkboxList[i].setAttribute("data-num", `${i}`);
   }
 }
 
@@ -107,9 +117,12 @@ function deleteData(e) {
   } //判斷是否點擊到刪除按鈕
   var num = e.target.dataset.num; //取得待辦事項編號
   dataBase.splice(num, 1); //刪除點選的資料一筆
+  checkBase.splice(num, 1); //刪除點選的資料一筆
   localStorage.setItem("item", JSON.stringify(dataBase)); //存入localStorage作更新
+  localStorage.setItem("check", JSON.stringify(checkBase)); //存入localStorage作更新
   listBlock.innerHTML = ``; //先清除顯示區塊
   updatePage(dataBase); //在網頁上更新資訊，重新顯示dataBase
+  updateCheckboxStatus(checkBase);
 }
 
 //!clearAll
@@ -117,8 +130,10 @@ var clearBtn = document.getElementById("clearBtn");
 clearBtn.addEventListener("click", () => {
   localStorage.clear();
   dataBase = [];
-  updatePage(dataBase);
+  checkBase = [];
+  updateCheckboxStatus(checkBase);
   listBlock.innerHTML = ``;
+  updatePage(dataBase);
 });
 
 //!勾選狀態更改
@@ -140,4 +155,32 @@ function checkboxStatus() {
       }
     }
   });
+}
+
+//!在localStorage同步checkbox狀態
+listBlock.addEventListener("change", (e) => {
+  // console.log(e.target)
+  e.stopPropagation();
+  if (e.target.nodeName !== "INPUT") {
+    return;
+  } //判斷是否點擊到checkbox
+  let num = e.target.dataset.num;
+  checkBase[num].checked = e.target.checked;
+  localStorage.setItem("check", JSON.stringify(checkBase));
+});
+
+// //!將localStorage的checkbox狀態渲染到網頁上
+function updateCheckboxStatus(checkBase) {
+  let checkbox = document.querySelectorAll("[type=checkbox]");
+  for (let i = 0; i < checkBase.length; i++) {
+    checkbox[i].checked = checkBase[i].checked;
+    let text = document.querySelectorAll(".content");
+    if (checkbox[i].checked) {
+      text[i].style.textDecoration = " line-through";
+      text[i].style.color = "#9F9F9F";
+    } else {
+      text[i].style.textDecoration = "none";
+      text[i].style.color = "var(--black)";
+    }
+  }
 }
