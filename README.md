@@ -2,6 +2,7 @@
 ![image](https://github.com/ninininn/sideProject-TodoList/assets/88373915/301ba3eb-1fc6-479b-ae02-b39cc21cb245)
 
 the first todo list project done with basic JS DOM
+
 Github Pages : https://ninininn.github.io/sideProject-TodoList/
 
 ######  Basic Function - CRUD
