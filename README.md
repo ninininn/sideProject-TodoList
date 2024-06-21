@@ -3,7 +3,7 @@
 
 the first todo list project done with basic JS DOM
 
-Github Pages : https://ninininn.github.io/sideProject-TodoList/
+[Try me with Github Pages](https://ninininn.github.io/sideProject-TodoList/)
 
 ######  Basic Function - CRUD
 - 點擊＋或 ` enter ` 新增項目
@@ -15,9 +15,6 @@ Github Pages : https://ninininn.github.io/sideProject-TodoList/
 
 ###### Extend Function
 - 紀錄內容（包含勾選狀態），儲存至 ` localStorage `
-
-###### 待優化新增
-
 
 
 # Functional Requirements
