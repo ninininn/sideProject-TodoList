@@ -1,6 +1,9 @@
 # Description | sideProject-TodoList
+![image](https://github.com/ninininn/sideProject-TodoList/assets/88373915/301ba3eb-1fc6-479b-ae02-b39cc21cb245)
 
 the first todo list project done with basic JS DOM
+Github Pages : https://ninininn.github.io/sideProject-TodoList/
+
 ######  Basic Function - CRUD
 - 點擊＋或 ` enter ` 新增項目
 - 點擊 ` deleteBtn ` 刪除該項目
